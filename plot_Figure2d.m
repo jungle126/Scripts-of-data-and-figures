@@ -1,0 +1,67 @@
+%Script for Figure2d
+clc;clear;close all;
+% set grid(kappa,Dp) and the values of n(Dp,kappa)
+% must be same as that if SScrit(Dp,kappa) in script "Data_of_figure2and3_SScrit_Dp_kappa.m"
+kappa_bin=0.01;
+Dp_bin=10;
+kappa = 0.005:kappa_bin:1;
+Dp = 5:Dp_bin:600; % nm
+
+%% 
+load('../Data/Data-figure/Figure2d_model_for_SP2.mat');
+N_model = n_Dp_kappa;
+load('../Data/Data-figure/Figure2_SScrit_Dp_kappa.mat', 'SS');
+SS_thresholds = [1.005, 1.002, 1.001];
+
+figure;
+imagesc(N_model);
+hold on;
+colorlist = [
+    [1 0 0]
+    [0 1 1]
+    [0 1 0]
+    ];
+for i = 1:length(SS_thresholds)
+    SS_value = SS_thresholds(i);
+    Dp_list = [];
+    kappa_list = [];
+    for j= 1:length(Dp)
+        [row, col] = find(SS(:,j) <= SS_value);
+        if isempty(row)
+            continue;
+        end
+        kappa_values = max(kappa(row));
+        Dp_values = Dp(j);
+        Dp_list = [Dp_list, Dp_values];
+        kappa_list = [kappa_list, kappa_values];
+    end
+    X_ss =  [min(Dp_list/10), Dp_list/10];
+    Y_ss = [1,kappa_list*100];
+    plot(X_ss,Y_ss, 'Color', colorlist(i,:),'DisplayName', ['SS_{crit} = ' num2str(SS_value)], 'LineWidth', 0.5);
+    hold on;
+end
+
+txt = ['Theoretical Model' sprintf('\n') '(adjusted to SP2)'];
+text(20,10,txt,'FontSize',7,'Color', 'w');
+
+colormap(nclCM(172,128));
+% colormap(nclCM(232,128));
+cb=colorbar; % add colorbar
+cb.Ticks = [0 0.25 0.5 0.75 1];
+cb.TickLabels = {'0', '0.25', '0.5', '0.75', '1'};
+set(get(cb,'title'),'string','Normalized n(\kappa,D_{p,dry})');
+% set(get(cb,'title'),'string','n(\kappa,D_{p,dry}) d\kappadD_{p,dry} (m^{-3})');
+set(cb,'linewidth',0.8);
+set(cb,'FontSize',7);
+
+yticks([1 25 50 75 100]);
+yticklabels({'1','0.75','0.5','0.25','0'});
+ylabel('\kappa','FontSize',10.5);
+xticks([1 20 40 60]);
+xticklabels({'' '200' '400' '600'});
+xlabel('D_{p,dry} (nm)','FontSize',10.5);
+tickLength = [0.02, 0.03]; 
+set(gca, 'TickLength', tickLength);
+set(gca,'linewidth',0.8);
+set(gcf, 'unit', 'centimeters', 'position', [0 0 7 6]);
+print('-r1000','-dpng','../Figure/Figure2/Figure2d.png');
