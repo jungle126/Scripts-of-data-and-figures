@@ -8,6 +8,8 @@ color_list = [
     [128,0,128,255]/255
     [0,153,78,180]/255
     [255,102,0,100]/255
+    % [204,60,138,180]/255
+    [9 2 250 180]/255
     ];
 
 figure;
@@ -18,15 +20,20 @@ semilogx(X_list(4,:), Y_list(4,:),  'color', color_list(2,:), 'LineStyle',linest
 plot(x1,y11, 'color', color_list(3,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','o');
 plot(x2,y22, 'color', color_list(4,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','d');
 plot(x2,y23, 'color', color_list(5,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','s');
+plot(x2,y24,'Color',color_list(6,:),'LineStyle',linestyle_list(1),'LineWidth',1,'Marker','+');
 plot(x3,y31, 'color', color_list(3,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','o');
 plot(x3,y32, 'color', color_list(4,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','d');
 plot(x3,y33, 'color', color_list(5,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','s');
-plot(x4,y41, 'color', color_list(3,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','o');
+plot(x3,y34,'Color',color_list(6,:),'LineStyle',linestyle_list(1),'LineWidth',1,'Marker','+');
+plot(x4,y44,'Color',color_list(6,:),'LineStyle',linestyle_list(1),'LineWidth',1,'Marker','+');
+
+plot(x5,y51, 'color', color_list(3,:), 'LineStyle',linestyle_list(1),'LineWidth', 1,'Marker','o');
+
 
 x_fill = [X_list(1,:) X_list(1,end:-1:1)]; 
 y_fill = [Y_list(4,:),Y_list(1,end:-1:1)]; 
 patch(x_fill, y_fill,'k','FaceAlpha',0.1,'EdgeColor','none');
-L1=legend([label_list(1),label_list(4),label_list(5),label_list(6),label_list(7)]);
+L1=legend([label_list(1),label_list(4),label_list(5),label_list(6),label_list(7),label_list(8)]);
 set(L1,'Box','off','Location','NorthWest','FontSize',7);
 xlim([0,0.01]);
 ylim([0, 1]);
