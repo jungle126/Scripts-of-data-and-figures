@@ -8,7 +8,7 @@ kappa = 0.005:kappa_bin:1;
 Dp = 5:Dp_bin:600; % nm
 
 %% 
-load('../Data/Data-figure/Figure2a_model.mat');
+load('../Data/Data-figure/Figure2a.mat');
 N_model = n_Dp_kappa;
 load('../Data/Data-figure/Figure2_SScrit_Dp_kappa.mat', 'SS');
 SS_thresholds = [1.005, 1.002, 1.001];

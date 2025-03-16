@@ -36,7 +36,7 @@ tickLength = [0.02, 0.03];
 set(gca, 'TickLength', tickLength);
 set(gca,'linewidth',0.8);
 set(gcf, 'units', 'centimeters', 'position', [0 0 8.5 5]);
-print('-r1000','-dpng','../Figure/FigureS1/FigureS1c.png');
+print('-r1000','-dpng','../Figure/FigureS1/FigureS1b.png');
 %%
 figure;
 hold on

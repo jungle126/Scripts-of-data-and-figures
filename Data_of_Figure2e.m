@@ -13,7 +13,7 @@ data_cleaned.CT = data_cleaned.Dp-data_cleaned.Dc;
 % delt CT=0
 data_cleaned = data_cleaned(data_cleaned.CT > 0, :);
 data_cleaned = data_cleaned(data_cleaned.Dc > 90, :);
-data_cleaned = data_cleaned(data_cleaned.Dp > 140, :);
+data_cleaned = data_cleaned(data_cleaned.Dp > 120, :);
 
 % calculate kappaa
 data_cleaned.kappa = fun_km_Dp_Dc(data_cleaned.Dp, data_cleaned.Dc);

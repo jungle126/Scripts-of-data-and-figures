@@ -5,7 +5,7 @@
 clc;clear;close all;
 load('../Data/Data-figure/Figure2_SScrit_Dp_kappa.mat', 'SS');
 sigma_g = 1.6;
-D_gn = 89;
+D_gn = 90;
 k_list = [0.008  0.020];
 kappa_c_list = [0.45  0.15];
 label_list = []; 
@@ -22,34 +22,48 @@ for i=1:length(k_list)
         else
             X_list = [X_list;X];
             Y_list = [Y_list;Y];
-            label_list = [label_list; strcat("k = ", num2str(k_value), ", \kappa_c = ", num2str(kappa_c_value))];
+            label_list = [label_list; strcat("m = ", num2str(k_value), ", \kappa_c = ", num2str(kappa_c_value))];
         end
     end
 end
 X_list = X_list-1;
-label_list(5) = "Zaveri et al. (2010)";
-label_list(6) = "Wu et al. (2019)";
-label_list(7) = "Tian et al. (2024)";
-label_list(8) = "Hu et al. (2021)";
+label_list(5) = "Simulated by Zaveri et al. (2010)";
+label_list(6) = "Observed by Wu et al. (2019)";
+label_list(7) = "Observed by Hu et al. (2021)";
+label_list(8) = "Observed by Yu et al. (2022)";
+label_list(9) = "Observed by Tian et al. (2024)";
+% label_list(5) = "Simulated by Zaveri et al.";
+% label_list(6) = "Observed by Wu et al.";
+% label_list(7) = "Observed by Hu et al.";
+% label_list(8) = "Observed by Yu et al.";
+% label_list(9) = "Observed by Tian et al.";
 %data
+% x1: mean: SSenv=0.05%
+% x2: 0.1%; x3: 0.2%; x4: 0.3%; x5: 0.5%
+% y?5: Zaveri; y?6: Wu; y?7: Hu; y?8: Yu
 x1 = [0.0005 0.0005];
-y11 = [0.025 0.055];
+y15 = [0.025 0.055];
 x2 = [0.001 0.001];
-y22 = [0.17 0.49];
-y23 = [0.27 0.57];
-y24 = [0.16 0.32];
+y26 = [0.17 0.49];
+y27 = [0.16 0.32];
+y29 = [0.27 0.57];
 x3 = [0.002 0.002];
-y31 = [0.32 0.58];
-y32 = [0.54 0.84];
-y33 = [0.39 0.79];
-y34 = [0.5 0.7];
+y35 = [0.32 0.58];
+y36 = [0.54 0.84];
+y37 = [0.5 0.7];
+y38 = [0.46 0.54];
+y39 = [0.39 0.79];
 x4 = [0.003 0.003];
-y44 = [0.61 0.79];
+y47 = [0.61 0.79];
 x5 = [0.005 0.005];
-y51 = [0.68 0.88];
+y55 = [0.68 0.88];
 
-save('../Data/Data-figure/Figure3.mat','X_list','Y_list','label_list','x1','y11',...
-    'x2','y22','y23','y24','x3','y31','y32','y33','y34',...
-    'x4','y44','x5','y51');
+save('../Data/Data-figure/Figure3.mat', ...
+    'X_list','Y_list','label_list',...
+    'x1', 'y15', ...
+    'x2', 'y26', 'y27', 'y29', ...
+    'x3', 'y35', 'y36', 'y37', 'y38', 'y39', ...
+    'x4', 'y47', ...
+    'x5', 'y55');
 
 %%

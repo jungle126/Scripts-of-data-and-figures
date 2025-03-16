@@ -2,27 +2,29 @@
 %   This script is designed to save data as ".mat" file that describe the distribution 
 %   of black carbon-containing (BCc) particles. 
 
-%   data for Figure 2b and S2a£ºcore-shell (same kappa_c)
-%   data for Figure S2b £ºvolume mixed kappa (different kappa_c)
+%   data for Figure S7a£ºcore-shell (same kappa_c)
+%   data for Figure S7b £ºvolume mixed kappa (different kappa_c)
 
 
 clc;
 clear;
+load('../Data/FigureS7_meankappac.mat')
+kc= sum(kappac.*conc)/sum(conc);
 pi=3.14;
-kc=0.58; 
 fun_km_Dp_Dc=@(Dp,Dc) kc.*(1-(Dc./Dp).^3); % function: km(Dp,Dc) under a constant kappa_c
 
+
 % load data
-load('../Data/PartMC_DcDpKappaConc_Particle.mat');
+load('../Data/FigureS7_DcDpConcKappa.mat');
 % do filter Dc>0 and CT>0
 condition = Dc > 0 & Dc < Dp; % filter BCc paticles
 Conc = Conc(condition);
 Dp = Dp(condition);
 Dc = Dc(condition);
-% % Figure S2b £ºdifferent kappa for particles (volume-weight method)
+% % Figure S7b £ºdifferent kappa for particles (volume-weight method)
 % kappa = kappa(condition); 
 
-% data for Figure 2b and FigureS1a£ºsame kappa for coating (core-shell) 
+% data for Figure S7a£ºsame kappa for coating (core-shell) 
 kappa = fun_km_Dp_Dc(Dp, Dc); % set a constant kappa_c
 
 % get the distribution of n(Dp,kappa)
@@ -54,8 +56,7 @@ N = N/abs(kappa_bin*Dp_bin); % n(kappa,Dp)=N/dkm_bin/dDp_bin
 N = (N-min(min(N)))/(max(max(N))-min(min(N)));
 N = N(end:-1:1, :);
 % % data for Figure S2b £ºvolume mixed kappa (different kappa_c)
-% save('../Data/Data-figure/FigureS2b_diffkappac.mat','N');
+% save('../Data/Data-figure/FigureS7b_diffkappac.mat','N');
 
-% data for Figure 2b and S2a£ºcore-shell (same kappa_c)
-save('../Data/Data-figure/Figure2b_PartMC.mat','N');
-save('../Data/Data-figure/FigureS2a_samekappac.mat','N');
+% data for Figure S7a£ºcore-shell (same kappa_c)
+save('../Data/Data-figure/FigureS7a_samekappac.mat','N');

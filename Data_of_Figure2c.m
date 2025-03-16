@@ -7,7 +7,7 @@
 
 clc;clear;close all;
 load('../Data/Data-figure/Figure2_SScrit_Dp_kappa.mat', 'SS');
-load('../Data/Data-figure/Figure2a_model.mat');
+load('../Data/Data-figure/Figure2a.mat');
 d_model = n_Dp_kappa;
 load('../Data/Data-figure/Figure2b_PartMC.mat');
 d_PM = N;

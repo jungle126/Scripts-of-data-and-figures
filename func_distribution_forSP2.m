@@ -1,4 +1,5 @@
-function n_kappa_Dp_VSP2= func_distribution_forSP2(k,kappa_c,Dp_filter,Dc_filter)
+function n_kappa_Dp_VSP2= ...
+func_distribution_forSP2(k,kappa_c,sigma_g,D_gn,Dp_filter,Dc_filter)
 %This function is used to get the number concentration distribution (n(kappa,Dp) adjusted to the size range of SP2
 %Inputs:
 % k: a parameter of coating thickness distribution of BC aerosols
@@ -8,10 +9,9 @@ function n_kappa_Dp_VSP2= func_distribution_forSP2(k,kappa_c,Dp_filter,Dc_filter
 % n_kappa_Dp: n(kappa,Dp)A matrix where each element corresponds to the normalized distribution of particles for a given kappa and Dp combination.
 
 N=1;
-pi=3.14;
 % kappa_c=0.65;
-sigma_g=1.6;
-D_gn=89; %nm
+% sigma_g=1.6;
+% D_gn=89; %nm
 % k=0.016;
 
 % set grid(kappa,Dp) and the values of n(kappa,Dp)
@@ -30,19 +30,24 @@ fun_kappa_Dp=@(kappa,Dp) k*N/3/(2*pi)^0.5/(kappa_c-kappa)/log(sigma_g)*...
 Z = arrayfun(fun_kappa_Dp, kappa_grid, Dp_grid); % n(kappa,Dp)
 Z(kappa_grid >= kappa_c) = 0;
 % Z = Z*abs(kappa_bin*Dp_bin); % n(kappa,Dp)dDpdkappa
-Z = (Z-min(min(Z)))/(max(max(Z))-min(min(Z)));
 Z = Z(end:-1:1,:);
 n_kappa_Dp_VSP2=Z;
-n_kappa_Dp_VSP2(:,1:Dp_filter/10) = zeros(100,Dp_filter/10);
+% n(Dp<140nm)==0
+if Dp_filter~=0
+    n_kappa_Dp_VSP2(:,1:Dp_filter/10) = zeros(100,Dp_filter/10);
+end
 kappa_T = kappa(end:-1:1);
 max_kappa_for_Dp = kappa_c.*(1-Dc_filter^3./Dp.^3);
-for i=Dp_filter/10:length(n_kappa_Dp_VSP2(1,:))
+% for i=Dp_filter/10:length(n_kappa_Dp_VSP2(1,:))
+for i=1:length(n_kappa_Dp_VSP2(1,:))
     max_kappa = max_kappa_for_Dp(i);
     kappa_index = find(kappa_T > max_kappa);
         if ~isempty(kappa_index)
             % 
             n_kappa_Dp_VSP2(kappa_index,i)=0;
         end
-
+end
+n_kappa_Dp_VSP2 = (n_kappa_Dp_VSP2-min(min(n_kappa_Dp_VSP2)))/...
+    (max(max(n_kappa_Dp_VSP2))-min(min(n_kappa_Dp_VSP2)));
 end
 
